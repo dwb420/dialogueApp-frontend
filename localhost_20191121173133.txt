@@ -1,0 +1,361 @@
+dblock@localhost:~$ sudo fuser -k -HUP /boot
+dblock@localhost:~$ sudo fuser -k -SIGNAL
+NAL: unknown signal; /usr/bin/fuser -l lists signals.
+dblock@localhost:~$ /usr/bin/fuser -l
+HUP INT QUIT ILL TRAP ABRT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT
+CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH POLL PWR SYS
+dblock@localhost:~$ fuser
+No process specification given
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  -                     reset options
+
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+dblock@localhost:~$ fuser .
+/home/dblock:        20325c
+dblock@localhost:~$ fuser /home/dblock
+/home/dblock:        20325c
+dblock@localhost:~$ fuser --killall
+fuser: Invalid option --killall
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  -                     reset options
+
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+dblock@localhost:~$ fuser --kill
+No process specification given
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  -                     reset options
+
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+dblock@localhost:~$ fuser -v -m .bashrc
+                     USER        PID ACCESS COMMAND
+/home/dblock/.bashrc:
+                     root     kernel mount /
+                     dblock     6225 f.ce. busybox
+                     dblock     6243 ..ce. proot
+                     dblock     6251 .rce. dropbear
+                     dblock    20323 Frce. dropbear
+                     dblock    20325 .rce. bash
+dblock@localhost:~$ fuser -m --kill
+No process specification given
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  -                     reset options
+
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+dblock@localhost:~$ fuser 'local_port' --kill
+Specified filename local_port does not exist.
+dblock@localhost:~$ fuser [rmt_host] --kill
+Specified filename [rmt_host] does not exist.
+dblock@localhost:~$ fuser -v
+No process specification given
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  -                     reset options
+
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+dblock@localhost:~$ sudo fuser -k [rmt_host]
+Specified filename [rmt_host] does not exist.
+dblock@localhost:~$ sudo fuser -k busybox
+Specified filename busybox does not exist.
+dblock@localhost:~$ fuser -k /dropbear
+Specified filename /dropbear does not exist.
+dblock@localhost:~$ unmount /usr/local/host9
+-bash: unmount: command not found
+dblock@localhost:~$ mount
+/dev/root on / type ext4 (ro,relatime,seclabel,block_validity,delalloc,barrier,user_xattr)
+tmpfs on /dev type tmpfs (rw,nosuid,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755)
+devpts on /dev/pts type devpts (rw,relatime,seclabel,mode=600,ptmxmode=000)
+none on /dev/stune type cgroup (rw,nosuid,nodev,noexec,relatime,schedtune)
+none on /dev/cpuctl type cgroup (rw,nosuid,nodev,noexec,relatime,cpu)
+none on /dev/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset,noprefix,release_agent=/sbin/cpuset_release_agent)
+cg2_bpf on /dev/cg2_bpf type cgroup2 (rw,nosuid,nodev,noexec,relatime)
+adb on /dev/usb-ffs/adb type functionfs (rw,relatime)
+proc on /proc type proc (rw,relatime,gid=3009,hidepid=2)
+sysfs on /sys type sysfs (rw,relatime,seclabel)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime,seclabel)
+tracefs on /sys/kernel/debug/tracing type tracefs (rw,relatime,seclabel)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime,seclabel)
+tmpfs on /mnt type tmpfs (rw,nosuid,nodev,noexec,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755,gid=1000)
+/dev/block/bootdevice/by-name/persist on /mnt/vendor/persist type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/drm on /mnt/vendor/persist-lg type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/sns on /mnt/vendor/sns type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/power on /mnt/vendor/power type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/fota on /mnt/product/fota type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/p_persist_lg on /mnt/product/persist-lg type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/mpt on /mnt/product/mpt type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/srtc on /mnt/product/srtc type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/els on /mnt/product/els type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/carrier on /mnt/product/carrier type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/operatorlogging on /mnt/product/quality type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/eri on /mnt/product/eri type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/data/media on /mnt/runtime/default/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=1015,multiuser,mask=6,derive_gid,default_normal)
+/data/media on /mnt/runtime/read/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=23,derive_gid,default_normal)
+/data/media on /mnt/runtime/write/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=7,derive_gid,default_normal)
+/dev/block/dm-1 on /product type ext4 (ro,relatime,seclabel,block_validity,discard,delalloc,barrier,user_xattr)
+/dev/block/dm-3 on /product/OP type ext4 (ro,nosuid,nodev,noatime,context=u:object_r:system_file:s0,noauto_da_alloc,data=ordered)
+/dev/block/dm-2 on /vendor type ext4 (ro,relatime,seclabel,block_validity,discard,delalloc,barrier,user_xattr)
+/dev/block/bootdevice/by-name/dsp_b on /vendor/dsp type ext4 (ro,nosuid,nodev,relatime,seclabel,data=ordered)
+/dev/block/bootdevice/by-name/modem_b on /vendor/firmware_mnt type vfat (ro,relatime,context=u:object_r:firmware_file:s0,gid=1000,fmask=0337,dmask=0227,codepage=437,iocharset=iso8859-1,shortname=lower,errors=remount-ro)
+none on /acct type cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct)
+none on /config type configfs (rw,nosuid,nodev,noexec,relatime)
+/dev/block/bootdevice/by-name/userdata on /data type ext4 (rw,nosuid,nodev,noatime,seclabel,discard,noauto_da_alloc,resgid=1065,data=ordered)
+tmpfs on /storage type tmpfs (rw,nosuid,nodev,noexec,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755,gid=1000)
+/data/media on /storage/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=7,derive_gid,default_normal)
+tmpfs on /storage/self type tmpfs (rw,nosuid,nodev,noexec,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755,gid=1000)
+dblock@localhost:~$ mountfuser -6
+-bash: mountfuser: command not found
+dblock@localhost:~$ fuser -6
+No process specification given
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  -                     reset options
+
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+dblock@localhost:~$ mount device_name on /usr/bin dropbear --unmount
+mount: unrecognized option '--unmount'
+Try 'mount --help' for more information.
+dblock@localhost:~$ mount --help
+
+Usage:
+ mount [-lhV]
+ mount -a [options]
+ mount [options] [--source] <source> | [--target] <directory>
+ mount [options] <source> <directory>
+ mount <operation> <mountpoint> [<target>]
+
+Mount a filesystem.
+
+Options:
+ -a, --all               mount all filesystems mentioned in fstab
+ -c, --no-canonicalize   don't canonicalize paths
+ -f, --fake              dry run; skip the mount(2) syscall
+ -F, --fork              fork off for each device (use with -a)
+ -T, --fstab <path>      alternative file to /etc/fstab
+ -i, --internal-only     don't call the mount.<type> helpers
+ -l, --show-labels       show also filesystem labels
+ -n, --no-mtab           don't write to /etc/mtab
+     --options-mode <mode>
+                         what to do with options loaded from fstab
+     --options-source <source>
+                         mount options source
+     --options-source-force
+                         force use of options from fstab/mtab
+ -o, --options <list>    comma-separated list of mount options
+ -O, --test-opts <list>  limit the set of filesystems (use with -a)
+ -r, --read-only         mount the filesystem read-only (same as -o ro)
+ -t, --types <list>      limit the set of filesystem types
+     --source <src>      explicitly specifies source (path, label, uuid)
+     --target <target>   explicitly specifies mountpoint
+ -v, --verbose           say what is being done
+ -w, --rw, --read-write  mount the filesystem read-write (default)
+ -N, --namespace <ns>    perform mount in another namespace
+
+ -h, --help              display this help
+ -V, --version           display version
+
+Source:
+ -L, --label <label>     synonym for LABEL=<label>
+ -U, --uuid <uuid>       synonym for UUID=<uuid>
+ LABEL=<label>           specifies device by filesystem label
+ UUID=<uuid>             specifies device by filesystem UUID
+ PARTLABEL=<label>       specifies device by partition label
+ PARTUUID=<uuid>         specifies device by partition UUID
+ <device>                specifies device by path
+ <directory>             mountpoint for bind mounts (see --bind/rbind)
+ <file>                  regular file for loopdev setup
+
+Operations:
+ -B, --bind              mount a subtree somewhere else (same as -o bind)
+ -M, --move              move a subtree to some other place
+ -R, --rbind             mount a subtree and all submounts somewhere else
+ --make-shared           mark a subtree as shared
+ --make-slave            mark a subtree as slave
+ --make-private          mark a subtree as private
+ --make-unbindable       mark a subtree as unbindable
+ --make-rshared          recursively mark a whole subtree as shared
+ --make-rslave           recursively mark a whole subtree as slave
+ --make-rprivate         recursively mark a whole subtree as private
+ --make-runbindable      recursively mark a whole subtree as unbindable
+
+For more details see mount(8).
+dblock@localhost:~$ mount -l
+/dev/root on / type ext4 (ro,relatime,seclabel,block_validity,delalloc,barrier,user_xattr)
+tmpfs on /dev type tmpfs (rw,nosuid,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755)
+devpts on /dev/pts type devpts (rw,relatime,seclabel,mode=600,ptmxmode=000)
+none on /dev/stune type cgroup (rw,nosuid,nodev,noexec,relatime,schedtune)
+none on /dev/cpuctl type cgroup (rw,nosuid,nodev,noexec,relatime,cpu)
+none on /dev/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset,noprefix,release_agent=/sbin/cpuset_release_agent)
+cg2_bpf on /dev/cg2_bpf type cgroup2 (rw,nosuid,nodev,noexec,relatime)
+adb on /dev/usb-ffs/adb type functionfs (rw,relatime)
+proc on /proc type proc (rw,relatime,gid=3009,hidepid=2)
+sysfs on /sys type sysfs (rw,relatime,seclabel)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime,seclabel)
+tracefs on /sys/kernel/debug/tracing type tracefs (rw,relatime,seclabel)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime,seclabel)
+tmpfs on /mnt type tmpfs (rw,nosuid,nodev,noexec,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755,gid=1000)
+/dev/block/bootdevice/by-name/persist on /mnt/vendor/persist type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/drm on /mnt/vendor/persist-lg type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/sns on /mnt/vendor/sns type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/power on /mnt/vendor/power type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/fota on /mnt/product/fota type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/p_persist_lg on /mnt/product/persist-lg type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/mpt on /mnt/product/mpt type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/srtc on /mnt/product/srtc type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/els on /mnt/product/els type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/carrier on /mnt/product/carrier type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/operatorlogging on /mnt/product/quality type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/dev/block/bootdevice/by-name/eri on /mnt/product/eri type ext4 (rw,nosuid,nodev,noatime,seclabel,noauto_da_alloc,data=ordered)
+/data/media on /mnt/runtime/default/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=1015,multiuser,mask=6,derive_gid,default_normal)
+/data/media on /mnt/runtime/read/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=23,derive_gid,default_normal)
+/data/media on /mnt/runtime/write/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=7,derive_gid,default_normal)
+/dev/block/dm-1 on /product type ext4 (ro,relatime,seclabel,block_validity,discard,delalloc,barrier,user_xattr)
+/dev/block/dm-3 on /product/OP type ext4 (ro,nosuid,nodev,noatime,context=u:object_r:system_file:s0,noauto_da_alloc,data=ordered)
+/dev/block/dm-2 on /vendor type ext4 (ro,relatime,seclabel,block_validity,discard,delalloc,barrier,user_xattr)
+/dev/block/bootdevice/by-name/dsp_b on /vendor/dsp type ext4 (ro,nosuid,nodev,relatime,seclabel,data=ordered)
+/dev/block/bootdevice/by-name/modem_b on /vendor/firmware_mnt type vfat (ro,relatime,context=u:object_r:firmware_file:s0,gid=1000,fmask=0337,dmask=0227,codepage=437,iocharset=iso8859-1,shortname=lower,errors=remount-ro)
+none on /acct type cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct)
+none on /config type configfs (rw,nosuid,nodev,noexec,relatime)
+/dev/block/bootdevice/by-name/userdata on /data type ext4 (rw,nosuid,nodev,noatime,seclabel,discard,noauto_da_alloc,resgid=1065,data=ordered)
+tmpfs on /storage type tmpfs (rw,nosuid,nodev,noexec,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755,gid=1000)
+/data/media on /storage/emulated type sdcardfs (rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=7,derive_gid,default_normal)
+tmpfs on /storage/self type tmpfs (rw,nosuid,nodev,noexec,relatime,seclabel,size=1429140k,nr_inodes=357285,mode=755,gid=1000)
+dblock@localhost:~$
